@@ -78,9 +78,9 @@ php artisan key:generate
 php artisan migrate --seed
 
 sed -i.bak \
--e "s|^define('DB_NAME', '.*');|define('DB_NAME', '${DB_NAME}');|" \
--e "s|^define('DB_USERNAME', '.*');|define('DB_USERNAME', '${DB_USER}');|" \
--e "s|^define('DB_PASSWORD', '.*');|define('DB_PASSWORD', '${DB_PASS}');|" \
+-e "s|^define('DB_NAME'.*|define('DB_NAME', getenv('DB_NAME') ?: '${DB_NAME}');|" \
+-e "s|^define('DB_USERNAME'.*|define('DB_USERNAME', getenv('DB_USERNAME') ?: '${DB_USER}');|" \
+-e "s|^define('DB_PASSWORD'.*|define('DB_PASSWORD', getenv('DB_PASSWORD') ?: '${DB_PASS}');|" \
 "$AMFPHP_CRED_PATH"
 
 a2enmod rewrite
